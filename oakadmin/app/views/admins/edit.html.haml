@@ -1,0 +1,38 @@
+%h1 Edit admin account
+%p
+  Leave password and password confirmation fields blank if you don't want to modify it.
+= form_for @admin do |f|
+  - if @admin.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@admin.errors.count, "error")} prohibited this admin from being saved:"
+      %ul
+        - @admin.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :nick
+    = f.text_field :nick, class: "form-control"
+
+  .form-group
+    = f.label :first_name
+    = f.text_field :first_name, class: "form-control"
+    
+  .form-group
+    = f.label :last_name
+    = f.text_field :last_name, class: "form-control"
+
+
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: "form-control"
+    
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: "form-control"
+    
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: "form-control"
+
+  .actions
+    = f.submit 'Save', {:class=>"btn btn-info"}

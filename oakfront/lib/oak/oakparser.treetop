@@ -1,0 +1,31 @@
+grammar Oak
+
+rule expression
+  space? '(' body ')' space? <Expression>
+end
+
+rule body
+  (expression / gadget / hasfeature / hasfeatureand / feature / space )* <Body>
+end
+
+rule gadget
+  "gadget" <Gadget>
+end
+
+rule hasfeature
+  "with" space feature <HasFeature>
+end
+
+rule hasfeatureand
+  hasfeature space "and" space feature <HasFeatureAnd>
+end
+
+rule feature
+  [a-zA-Z0-9]+ <Feature>
+end
+
+rule space
+  [\s]+
+end
+
+end

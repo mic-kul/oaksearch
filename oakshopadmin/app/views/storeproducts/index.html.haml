@@ -1,0 +1,27 @@
+%h1 
+  Listing products
+  %a.btn.btn-success{:href=>"storeproducts/new"}
+    Add store product
+%table.table.table-striped.datatable#hiho
+  %thead
+    %tr
+      %th Product
+      %th Price
+      %th Actions
+  %tbody    
+    - @storeproducts.each do |sp|
+      %tr
+        %td= sp.name
+        %td= sp.price
+        %td
+          = link_to 'Change price', edit_storeproduct_path(sp),  :class => "btn btn-xs btn-warning"
+          = button_to 'Remove', sp, :method => :delete, :class => "btn btn-xs btn-danger", :data => { :confirm => 'Are you sure?' }
+        
+
+%br
+
+:javascript
+  console.log('ready!');
+    $('.datatable').dataTable({
+      "sPaginationType": "bootstrap"
+    });

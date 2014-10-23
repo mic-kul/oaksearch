@@ -1,0 +1,31 @@
+%ul.nav.navbar-nav
+	%li
+		= link_to "Products", :product_index
+	%li
+		%a{:href=>"/stores"}
+			Stores
+	%li
+		%a{:href=>"/reviews"}
+			Reviews
+
+%ul.nav.navbar-nav.navbar-right
+	- if @current_user
+		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="glyphicon glyphicon-user"></b> Profile: #{@current_user.first_name} #{@current_user.last_name} (#{@current_user.nick}) <b class="caret"></b></a>
+		<ul class="dropdown-menu">
+		<li><a href="/user">My profile</a></li>
+		<li><a href="/user/change_password">Change password</a></li>
+		<li class="divider"></li>
+		<li><a href="/user/search_history">Search history</a></li>
+		<li><a href="/user/price_offers">Price offers</a></li>
+		<li><a href="/user/watched_products">Watched products</a></li>
+		<li class="divider"></li>
+		<li><a href="/user_messages">Private messages</a></li>
+		<li><a href="/user_tickets">Tickets</a></li>
+		</ul>
+		</li>
+		<li><a href="/sessions/logout"><b class="glyphicon glyphicon-off"></b> Logout</a></li>
+		<li>&nbsp;&nbsp;&nbsp;</li>
+	- else
+		<li><a href="/sessions/login"><b class="glyphicon glyphicon-off"></b> Log in</a></li>
+		<li><a href="/user/new"><b class="glyphicon glyphicon-plus"></b> Register </a></li>
+		<li>&nbsp;&nbsp;&nbsp;</li>

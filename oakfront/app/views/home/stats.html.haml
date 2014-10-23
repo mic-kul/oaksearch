@@ -1,0 +1,112 @@
+%div{:class => "row"}
+	%div{:class => "col-md-4"}
+		%div{:class => "panel panel-info"}
+			%div{:class => 'panel-heading'}
+				%h3{:class => 'panel-title'} Products recently added
+			%table{:class =>"table table-hover table-striped table-bordered table-condensed"}
+				%tr
+					%th{:style=>"min-width: 150px;"}= 'Name'
+					%th= 'Date added'
+				- @recentProducts.each do |product|
+					%tr
+						%td= link_to product.name, product
+						%td 
+							%abbr{:class=> "timeago", :title=> product.created_date.iso8601() }= product.created_date
+			%div{:class => 'panel-footer'}
+				%p
+					%span{:class => "pull-right"}
+						%a{:href => "/products_recently_added"}
+							View more &raquo;
+
+	%div{:class => "col-md-4"}
+		%div{:class => "panel panel-info"}
+			%div{:class => 'panel-heading'}
+				%h3{:class => 'panel-title'} Products recently updated
+			%table{:class =>"table table-hover table-striped table-bordered table-condensed"}
+				%tr
+					%th{:style=>"min-width: 150px;"}= 'Name'
+					%th= 'Date updated'
+				- @recentProductsUpdated.each do |product|
+					%tr
+						%td= link_to product.name, product
+						%td 
+							%abbr{:class=> "timeago", :title=> product.modified_date.iso8601() }= product.modified_date
+			%div{:class => 'panel-footer'}
+				%p
+					%span{:class => "pull-right"}
+						%a{:href => "/products_recently_updated"}
+							View more &raquo;
+
+
+	%div{:class => "col-md-4"}
+		%div{:class => "panel panel-default"}
+			%div{:class => 'panel-heading'}
+				%h3{:class => 'panel-title'} Recent reviews
+			%table{:class =>"table table-hover table-striped table-bordered table-condensed"}
+				%tr
+					%th{:style=>"min-width: 150px;"}= 'Date'
+					%th= 'Rating'
+				- @reviews.each do |r|
+					%tr
+						%td= link_to r.created_date, r
+						%td= r.rating
+				
+			%div{:class => 'panel-footer'}
+				%p
+%div{:class => "row"}
+	%div{:class => "col-md-4"}
+		%div{:class => "panel panel-default"}
+			%div{:class => 'panel-heading'}
+				%h3{:class => 'panel-title'} Top users
+			%table{:class =>"table table-hover table-striped table-bordered table-condensed"}
+				%tr
+					%th{:style=>"min-width: 150px;"}= 'Name'
+					%th= 'Number of reviews '
+				- @users.each do |r|
+					%tr
+						%td= r.nick
+						%td= r.revs
+				
+			%div{:class => 'panel-footer'}
+				%p
+	%div{:class => "col-md-4"}
+		%div{:class => "panel panel-danger"}
+			%div{:class => 'panel-heading'}
+				%h3{:class => 'panel-title'} Recent price rises
+			%table{:class =>"table table-hover table-striped table-bordered table-condensed"}
+				%tr
+					%th= 'Change'
+					%th= 'Old price'
+					%th= 'New price'
+					%th= 'Product'
+					%th= 'Store'
+				- @priceRises.each do |r|
+					%tr
+						%td= r.pdrop
+						%td= r.price_old
+						%td= r.price_new
+						%td= r.pname
+						%td= r.sname
+			%div{:class => 'panel-footer'}
+				%p
+	%div{:class => "col-md-4"}
+		%div{:class => "panel panel-success"}
+			%div{:class => 'panel-heading'}
+				%h3{:class => 'panel-title'} Recent price drops
+			%table{:class =>"table table-hover table-striped table-bordered table-condensed"}
+				%tr
+					%th= 'Change'
+					%th= 'Old price'
+					%th= 'New price'
+					%th= 'Product'
+					%th= 'Store'
+				- @priceDrops.each do |r|
+					%tr
+						%td= r.pdrop
+						%td= r.price_old
+						%td= r.price_new
+						%td= r.pname
+						%td= r.sname
+				
+			%div{:class => 'panel-footer'}
+				%p

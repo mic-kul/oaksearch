@@ -1,0 +1,27 @@
+%h1 
+	Listing zipcodes
+
+%table.table.table-striped.datatable
+	%thead
+		%tr
+			%th Zip Code
+			%th Country
+			%th City
+			%th Actions
+	%tbody
+		- @zipcodes.each do |zipcode|
+			%tr
+				%td= zipcode.zip_code
+				%td= zipcode.country
+				%td= zipcode.city
+				%td
+					%a{:href=>"/zipcodes/#{zipcode.zip_code}/edit", :class=>"btn btn-warning btn-sm"}Edit
+					%a{:href=>"/zipcodes/#{zipcode.zip_code}/remove", :class=>"btn btn-sm btn-danger"}Remove
+
+%br
+
+:javascript
+	console.log('ready!');
+	$('.datatable').dataTable({
+	  "sPaginationType": "bootstrap"
+	});

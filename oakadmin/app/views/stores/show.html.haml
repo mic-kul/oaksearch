@@ -1,0 +1,29 @@
+%p#notice= notice
+
+%b Store Name
+=@store.name
+%br
+
+%b Website
+=@store.website
+%br
+
+%b Street Address
+=@store.street_address
+%br
+
+%b Zip Code
+=@store.zip_code
+%br
+
+%b Created date
+=@store.created_date
+%br
+
+%b Modified date
+=@store.modified_date
+%br
+
+= link_to 'Edit', edit_store_path(@store)
+\|
+= link_to 'Back', stores_path

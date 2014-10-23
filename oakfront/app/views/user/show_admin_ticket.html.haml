@@ -1,0 +1,27 @@
+%h1 
+	Ticket #
+	=@ticket.ticket_ua_id
+	%small= "Date #{@ticket.datetime}"
+.row
+	.col-md-8
+		%h3 
+			Message:
+		%p=@ticket.message
+
+		%h3 Replies:
+		-if @replies.empty?
+			%p There are no replies yet.
+		-@replies.each do |r|
+			- if r.is_creator
+				%i=r.datetime
+			-else
+				%strong=r.datetime
+			%p=r.message
+
+.row
+	%form{:method=>"post"}
+		%input{:name=>"authenticity_token", :type=>"hidden", :value=> form_authenticity_token} 
+		.form-group
+			%label Reply
+			%textarea{:name=>"reply", :rows=>"6", :class=>"form-control"}
+		%input{:type=>"submit", :value=>"Send", :class=>"btn btn-success"}

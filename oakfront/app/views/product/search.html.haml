@@ -1,0 +1,37 @@
+%h3 Products search results
+%table{:class =>"table table-hover table-striped table-bordered table-condensed datatable"}
+	%thead
+		%tr
+			%th{:style=>"width: 30px"}
+				%a{:class=>"btn btn-default btn-xs", :href=>"#", :id=>"compare-btn"}
+					Compare
+			%th= 'Name'
+			%th{:style=>{:width=>"50px;"}}= 'Result accuracy'
+	%tbody
+		- @products.each do |product|
+			- next if product.matches < 0
+			%tr
+				%td
+					%input{:type=> "checkbox", :value=> product.product_id, :class => "compare-checkbox"}
+				%td
+					= link_to product.name, product
+					%br
+					%small
+						-if @h.has_key?product.product_id
+							Matched: 
+							-@h[product.product_id].each do |f|
+								-if f[0] != '_name'
+									%i
+										= f[0]+": "
+									%b
+										= f[1]
+						-else
+							&nbsp;
+				%td 
+					%abbr{ :title=> product.matches }
+						-if @query.length > 0 && ((product.matches.to_f / @query.length)*100).round() > 100
+							100%
+						-elsif @query.length > 0
+							= ((product.matches.to_f / @query.length)*100).round().to_s + "%" if @query.length > 0
+						-else
+							= "-"

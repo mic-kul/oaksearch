@@ -1,0 +1,10 @@
+%h2 Edit price
+= form_for @storeproduct do |f|
+  .form-group
+    %label Product name
+    %input{:type=>"text", :disabled=>"disabled", :class=>"form-control", :value=>@storeproduct.name}
+  .form-group
+    = f.label :price
+    = f.text_field :price, class: "form-control"
+  .actions
+    = f.submit 'Save'

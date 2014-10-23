@@ -1,0 +1,38 @@
+%h1{:class => "page-header"} Listing products
+
+%div{:class => "breadcrumb"}
+  = link_to 'New Product', new_product_path, {:class=>"btn btn-info"}
+%table{:class =>"table table-hover table-striped datatable"}
+  %thead
+    %tr
+      %th #ID
+      %th Name
+      %th Created by
+      %th Created date
+      %th Modified by
+      %th Modified date
+      %th Actions
+      %th
+      %th
+      %th
+  %tbody
+    - @products.each do |product|
+      %tr
+        %td= product.product_id
+        %td= product.name
+        %td= product.creator.nick
+        %td= product.created_date
+        %td= product.editor.nick if product.editor
+        %td= product.modified_date
+        %td= link_to 'Gallery', "/product_add_photo/#{product.product_id}", :class=>"btn btn-xs btn-success"
+        %td= link_to 'Show', product,  :class => "btn btn-xs btn-info"
+        %td= link_to 'Edit', edit_product_path(product),  :class => "btn btn-xs btn-warning"
+        %td= button_to 'Destroy', product, :method => :delete, :class => "btn btn-xs btn-danger", :data => { :confirm => 'Are you sure?' }
+
+%br
+
+:javascript
+  console.log('ready!');
+    $('.datatable').dataTable({
+      "sPaginationType": "bootstrap"
+    });

@@ -1,0 +1,16 @@
+= form_for @feature do |f|
+  - if @feature.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@feature.errors.count, "error")} prohibited this feature from being saved:"
+      %ul
+        - @feature.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :feature_type
+    = f.text_field :feature_type, class: "form-control"
+  .form-group
+    %label Feature name (value)
+    = f.text_field :feature_name, class: "form-control"
+  .actions
+    = f.submit 'Save', {:class=>"btn btn-info"}

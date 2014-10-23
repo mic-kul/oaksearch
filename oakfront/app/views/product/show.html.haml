@@ -1,0 +1,211 @@
+-if @watched_by_current_user
+	:javascript
+		_product_watched = true;
+%script
+	- @productstats.each do |ps|
+		hits.push({x: "#{ps.date}", y: #{ps.visit}});
+	- i=1
+	- @priceHistory.each do |ph|
+		price_min.push({x: #{i}, y: #{ph.price_min}});
+		price_max.push({x: #{i}, y: #{ph.price_max}});
+		price_avg.push({x: #{i}, y: #{ph.price_avg}});
+		label[#{i}] = "#{ph.datetime.to_s[0..9]}"
+
+		-i=i+1
+		
+%h1
+	=@product.name
+	%a.btn.btn-warning#btn-watch-product{:href=>"#", "data-pid" => @product.product_id}
+		- if @watched_by_current_user != nil
+			%i.glyphicon.glyphicon-eye-close
+			Unwatch this Product
+		- else
+			%i.glyphicon.glyphicon-eye-open
+			Watch this Product
+	-if @current_user
+		%a.btn.btn-default{:href=>"/products_price_offer/#{@product.product_id}"}
+			%i.glyphicon.glyphicon-shopping-cart
+			Get price offers
+	-else
+		%a.btn.btn-default{:href=>"/sessions/login"}
+			%i.glyphicon.glyphicon-shopping-cart
+			Login to get price offers
+	%small{:class=>"pull-right"}product information page
+%div{:class=>"row"}
+	%div{:class=>"col-md-4"}
+		%h3 Gallery
+		.row
+			-if @photos.empty?
+				.col-md-10
+					%p There are no photos of this product yet, sorry.
+			-@photos.each do |photo|
+				.col-xs-6
+					%a{:href=>"#", :class=>"thumbnail"}
+						%img{:src=>"http://oakapp.trou.pl/uploads/#{photo.photo_path}", :height=>"250px"}
+
+	.col-md-8
+		%h3 
+			Similar products graph
+			%a{:class=>"btn btn-default btn-xs", :id=>"graph-redraw", :href=>"#"} Redraw
+			%small Click node to proceed to product
+		%div#canvas
+%div{:class => "row"}
+	%div{:class=>"col-md-8"}
+		%div{:class=>"row"}
+			%div{:class=>"col-md-6 left-div"}
+				%h3 Features
+				%table{:class=>"table table-bordered table-striped table-condensed"}
+					%tr
+						%th Feature
+						%th Value
+					- @product.features.each do |feature|
+						%tr
+							%td=feature.feature_type
+							%td=feature.feature_name
+			%div{:class=>"col-md-6"}
+				%h3 Description
+				%p= @product.description
+				%h3 Prices
+				%p
+					%b
+						Average price:
+						= @averagePrice.avg_price
+						from
+						= @averagePrice.price_count
+						offer(s) 
+				%table{:class=>"table table-bordered table-striped table-condensed"}
+					%tr
+						%th Price Source
+						%th Price
+					- @pricesList.each do |pl|
+						%tr
+							%td=pl.name
+							%td=pl.price
+		%div{:class=>"row"}
+			%div{:class => "col-md-12"}
+				%h3 
+					Reviews
+					%a{:id=>"add-new-review", :href=>"#", :class => "btn btn-info btn-sm", :data => {:pid => @product.product_id}}
+						<b class="glyphicon glyphicon-plus"></b> write new
+				- if @product.reviews.blank?
+					%p No reviews have been added yet!
+				- @product.reviews.each do |review|
+					.panel.panel-default
+						.panel-heading
+							Rating: #{review.rating}
+						.panel-body
+							=review.review_txt
+						.panel-footer
+							Written by
+							=review.user.nick
+							on
+							=review.created_date                
+	%div{:class => "col-md-4"}
+		%div{:class=>"panel panel-info"}
+			%div{:class => "panel-heading"}
+				%h4 Price history
+			%div{:class => "panel-body"}
+				%div{:id => 'pricechart'}
+					%svg
+		%div{:class=>"panel panel-warning"}
+			%div{:class => "panel-heading"}
+				%h4 Product popularity
+			%div{:class => "panel-body"}
+				%div{:id => 'popularitychart'}
+					%svg
+%script
+	var pid = #{@product.product_id};
+	var prod = "#{@product.name}";
+:javascript
+		var redraw;
+	var height = 200;
+	var width = 700;
+	$(document).ready(function() {
+	var graphurl = "/show_graph_json/"+pid;
+	function drawGraph() {
+	$.getJSON(graphurl, function(data) {
+		var g = new Graph();
+
+		var render = function(r, node) {
+
+		/* the Raphael set is obligatory, containing all you want to display */
+		  /* the default node drawing */
+		var color = Raphael.getColor();
+		var ellipse = r.ellipse(0, 0, 10, 10).attr({
+		fill: node.fill || color,
+		stroke: node.stroke || color,
+		"stroke-width": 2
+			});
+		ellipse.node.id = node.label || node.id;
+		var set = r.set().push(ellipse).push(r.text(0, 10, node.label || node.id));
+		set.click(function() {
+			window.location.href="/product/"+node.id;
+			console.log(node);
+			});
+		set.items.forEach(
+			function(el) {
+				el.tooltip(r.set().push(r.rect(0, 0, 10, 10)
+					.attr({"fill": "#fec", "stroke-width": 1, r : "14px"})))});
+		return set;
+		};
+
+		var renderMain = function(r, node) {
+
+		/* the Raphael set is obligatory, containing all you want to display */
+		  /* the default node drawing */
+		var color = Raphael.getColor();
+		var ellipse = r.ellipse(0, 0, 15, 15).attr({
+		fill: node.fill || color,
+		stroke: node.stroke || color,
+		"stroke-width": 2
+			});
+		ellipse.node.id = node.label || node.id;
+		var set = r.set().push(ellipse).push(r.text(0, 12, node.label || node.id));
+		set.items.forEach(
+			function(el) {
+				el.tooltip(r.set().push(r.rect(0, 0, 5, 5)
+					.attr({"fill": "#000", "stroke-width": 1, r : "14px"})))});
+		return set;
+		};
+
+		var nodes=[];
+		g.addNode(prod, {label: prod, render: renderMain});
+		for(var o =0; o<data.length; o++) {
+			name = data[o][0];
+			dbid = data[o][1];
+			labels = data[o][3];
+
+			label = "" + labels.length + " features";
+			if (!nodes[dbid]) {
+				g.addNode(dbid, {label: name, render: render});
+				nodes[dbid] = true;
+			}
+			g.addEdge(dbid, prod, {label: label, stroke: 'lightgray'});
+
+		}
+
+
+		var layouter = new Graph.Layout.Spring(g);
+		layouter.layout();
+		
+		/* draw the graph using the RaphaelJS draw implementation */
+			var r = new Graph.Renderer.Raphael('canvas', g, width, height);
+		
+		redraw = function() {
+			layouter.layout();
+			r.draw();
+		};
+
+
+	});
+	};
+	drawGraph();
+
+	$("#graph-redraw").click(function(e) {
+			$('#canvas').html('');
+			drawGraph();
+		});
+	});
+
+
+	/* only do all this when document has finished loading (needed for RaphaelJS */

@@ -1,0 +1,1 @@
+json.extract! @feature, :id, :feature_id, :feature_type, :feature_name, :created_by, :created_date, :modified_by, :modified_date

@@ -1,0 +1,26 @@
+%h2 Add Store Product
+= form_for @storeproduct do |f|
+  .form-group
+    = f.label :price
+    = f.text_field :price, class: "form-control"
+  %h3 Product:
+  .col-md-12
+  %table.table-striped.table.datatable
+    %thead
+      %tr
+        %th Check
+        %th Product Name
+    %tbody
+      - @products.each do |product|
+        %tr
+          %td
+            %input{:type=>"radio", :name=>"product_id", :value => product.product_id}
+          %td=product.name
+  .actions
+    = f.submit 'Save'
+
+:javascript
+  console.log('ready!');
+    $('.datatable').dataTable({
+      "sPaginationType": "bootstrap"
+    });

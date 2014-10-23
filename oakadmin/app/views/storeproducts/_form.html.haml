@@ -1,0 +1,36 @@
+= form_for @storeproduct do |f|
+  - if @storeproduct.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@storeproduct.errors.count, "error")} prohibited this storeproduct from being saved:"
+      %ul
+        - @storeproduct.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :price
+    = f.text_field :price, class: "form-control"
+  .form-group
+    = f.label :product_id
+    %select{:name=>"product_id", :class=> "form-control"}
+      - @products.each do |p|
+        - if @storeproduct.product_id == p.product_id
+          %option{:value=>p.product_id, :selected=>"selected"}
+            = p.name
+        - else
+          %option{:value=>p.product_id}
+            = p.name       
+
+  .form-group
+    = f.label :store_id
+    %select{:name=>"store_id", :class=> "form-control"}
+      - @stores.each do |store|
+        - if @storeproduct.store_id == store.store_id
+          %option{:value=>store.store_id, :selected=>"selected"}
+            = store.name
+        - else
+          %option{:value=>store.store_id}
+            = store.name
+            
+
+  .actions
+    = f.submit 'Save'

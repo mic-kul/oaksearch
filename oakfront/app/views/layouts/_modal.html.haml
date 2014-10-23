@@ -1,0 +1,11 @@
+/ Modal
+#popup.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "popup-title", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content{:style=>"min-width: 960px"}
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+        %h4#popup-title.modal-title Modal title
+      .modal-body#popup-content
+        / content
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close

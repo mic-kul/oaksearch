@@ -1,0 +1,52 @@
+%nav.navbar-default.navbar-static-side{role: "navigation"}
+  .sidebar-collapse
+    %ul#side-menu.nav
+      %li
+        %a{href: "/"}
+          %i.fa.fa-dashboard.fa-fw
+          Dashboard
+      %li
+        %a{href: "#"}
+          %i.fa.fa-bar-chart-o.fa-fw
+          Statistics
+          %span.fa.arrow
+        %ul.nav.nav-second-level
+          %li
+            %a{href: "/topproducts"} Top products
+          %li
+            %a{href: "/topreviews"} Top reviews
+          %li
+            %a{href: "/topusers"} Top users
+          %li
+            %a{href: "/liveusers"} Live users
+      %li
+        %a{href: "#"}
+          %i.fa.fa-table.fa-fw
+          Manage
+          %span.fa.arrow
+        %ul.nav.nav-second-level
+          %li
+            %a{href: "/products"} Products
+          %li
+            %a{href: "/features"} Features
+          %li
+            %a{href: "/users"} Users
+          %li
+            %a{href: "/reviews"} Reviews
+      %li
+        %a{href: "#"}
+          %i.fa.fa-table.fa-fw
+          Mange Stores
+          %span.fa.arrow
+        %ul.nav.nav-second-level
+          %li
+            %a{href: "/stores"} Stores
+          %li
+            %a{href: "/storeusers"} Store users
+      /
+        <li>
+        <a href="/helpdesk"><i class="fa fa-edit fa-fw"></i> Helpdesk</a>
+        </li>
+    / /#side-menu
+  / /.sidebar-collapse
+/ /.navbar-static-side

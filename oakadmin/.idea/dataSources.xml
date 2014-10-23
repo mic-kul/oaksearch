@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3870466082">
+    <data-source source="LOCAL" name="oracle.trou.pl" uuid="aba8fa35-2205-4103-a4d7-06ee096ff450">
+      <driver-ref>oracle</driver-ref>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//oracle.trou.pl:1521/oracle.trou.pl</jdbc-url>
+      <user-name>developer</user-name>
+      <user-password>dfe5dfc7dfc6dfcfdfdedfdedfcfdfeedfdfdfecdfd8dfc5dfc7dfcbdfcddfcf</user-password>
+      <schema-pattern>*.DEVELOPER</schema-pattern>
+      <default-schemas>*.DEVELOPER</default-schemas>
+      <table-pattern>DEVELOPER.*</table-pattern>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

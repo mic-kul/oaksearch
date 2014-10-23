@@ -1,0 +1,28 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %meta{content: "", name: "description"}/
+    %meta{content: "", name: "author"}/
+    %title Oakshop Admin
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "font-awesome/css/font-awesome.css", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => false
+    = csrf_meta_tags
+  %body
+    #wrapper{:style=>"width: 1020px; margin: 0 auto;"}
+      / Sidebar
+      - if @current_user
+        = render "/navbar_top"
+        = render "/sidebar"
+      #page-wrapper
+        .row
+          .col-lg-12
+            - if !@current_user
+              %h1 Oakshop Admin
+            = render "/messages"
+            = yield
+        / /.row
+      / /#page-wrapper
+    / /#wrapper

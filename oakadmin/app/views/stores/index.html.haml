@@ -1,0 +1,35 @@
+%h1
+  Listing stores
+  %a.btn.btn-success.btn-md{:href=>"stores/new"}
+    create store
+%table.table.table-striped.datatable#hiho
+  %thead
+    %tr
+      %th ID
+      %th Name
+      %th Website
+      %th Zip Code
+      %th Created date
+      %th Modified Date
+      %th Actions
+  %tbody    
+    - @stores.each do |store|
+      %tr
+        %td= store.store_id
+        %td= store.name
+        %td= store.website
+        %td= store.zip_code
+        %td= store.created_date
+        %td= store.modified_date
+        %td
+          = link_to 'Show', store,  :class => "btn btn-xs btn-info"
+          = link_to 'Edit', edit_store_path(store),  :class => "btn btn-xs btn-warning"
+          = button_to 'Remove', store, :method => :delete, :class => "btn btn-xs btn-danger", :data => { :confirm => 'Are you sure?' }
+
+%br
+
+:javascript
+  console.log('ready!');
+    $('.datatable').dataTable({
+      "sPaginationType": "bootstrap"
+    });

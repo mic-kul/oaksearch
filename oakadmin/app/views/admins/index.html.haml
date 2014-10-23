@@ -1,0 +1,22 @@
+%h1{:class => "page-header"} Listing admins
+%div{:class => "breadcrumb"}
+  = link_to 'New Admin account', new_admin_path, {:class=>"btn btn-info"}
+%table{:class =>"table table-hover table-striped tablesorter"}
+  %tr
+    %th #ID
+    %th Nick
+    %th Name
+    %th Last name
+    %th Email
+    %th Actions
+
+  - @admins.each do |a|
+    %tr
+      %td= a.admin_id
+      %td= a.nick
+      %td= a.first_name
+      %td= a.last_name
+      %td= a.email
+      %td
+        = link_to 'Edit', edit_admin_path(a), :class => "btn btn-xs btn-warning"
+        = button_to 'Destroy', a, :method => :delete, :class => "btn btn-xs btn-danger", :data => { :confirm => 'Are you sure?' }

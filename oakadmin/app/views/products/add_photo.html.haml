@@ -1,0 +1,17 @@
+%h1 
+	Gallery management for 
+	=@product.name
+= form_tag '/product_add_photo', multipart: true do
+	= hidden_field_tag :id, @product.product_id
+	.form-group
+		%label Upload Image
+		= file_field_tag :uploaded_file, :class=>"form-control"
+	%input{:type=>"submit"}
+%hr
+
+-@photos.each do |photo|
+	.div.col-md-2
+		%a{:class=>"thumbnail"}
+			=image_tag "http://oakapp.trou.pl/uploads/#{photo.photo_path}", height: '350px'
+		=photo.photo_path
+		%a{:class=>"btn btn-danger btn-xs", :href=>"/product_delete_photo/#{photo.photo_id}"}Delete

@@ -1,0 +1,29 @@
+%h1 Ask for price offers
+.row
+	.col-md-12
+		%form.form{:method=>"post"}
+			%input{:name=> "authenticity_token", :type=>"hidden", :value=> form_authenticity_token }
+			%input{:name=> "product_id", :type=>"hidden", :value=> @product.product_id }
+			
+			.form-group
+				%label Product Name
+				%input{:disabled=>"disabled", :type=>"text", :class=>"form-control", :value=>  @product.name}
+			.form-group
+				%label Your inquiry
+				%textarea{:name=>"message", :class=>"form-control", :rows=>"10"}
+			.form-group
+				%label
+					Time you are willing to wait for offers:
+				%br
+				%label.radio-inline
+					%input{:type=>"radio", :name=>"interval", :value=>"3"}
+					3 days
+				%label.radio-inline
+					%input{:type=>"radio", :name=>"interval", :value=>"7"}
+					7 days (1 week)
+				%label.radio-inline
+					%input{:type=>"radio", :name=>"interval", :value=>"14"}
+					14 days (2 weeks)
+			.form-group
+				%input{:type=>"submit", :value=>"submit", :class=>"btn btn-success"}
+

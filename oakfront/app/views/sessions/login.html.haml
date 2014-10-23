@@ -1,0 +1,11 @@
+- @page_title = "UserAuth | Login"
+.Sign_Form
+	%h1 Log in
+	.row
+		.col-md-6
+			= form_tag({:action => 'try_login', :class => 'form'}) do
+				.form-group
+					Username or Email: #{text_field_tag(:username_or_email,nil, class: "form-control")}
+				.form-group
+					Password: #{password_field_tag :login_password, nil, class: "form-control"}
+				= submit_tag("Log In", class: "btn btn-success")

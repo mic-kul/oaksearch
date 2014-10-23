@@ -1,0 +1,9 @@
+## WYSWIETLANIE
+MATCH (me:Product { dbid: 64 })-[r1:HAS_FEATURE]->(n:Feature)<-[r2:HAS_FEATURE]-(m:Product)
+RETURN m.name,m.dbid,count(n)
+ORDER BY count(n) DESC LIMIT 5
+
+## RYSOWANIE:
+MATCH (me:Product { dbid: 64 })-[r1:HAS_FEATURE]->(n:Feature)<-[r2:HAS_FEATURE]-(m:Product)
+RETURN m, n, r1, r2, count(n)
+ORDER BY count(n) DESC LIMIT 5

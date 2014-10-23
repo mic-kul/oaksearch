@@ -1,0 +1,25 @@
+.col-lg-12
+	%h1.page-header Welcome to the Oak Admin Dashboard
+
+.row
+	.col-md-5.well
+		This is the Oak Admin Dashboard. It allows to manage almost all aspects of this web application.
+		Most important things from the recent application events are shown on this page.
+		%br
+		To proceed, please choose an option from the sidebar.
+		%br
+		%b
+			Happy working!
+	.col-md-6
+		.panel.panel-danger
+			.panel-heading
+				Administrator Alerts
+			.panel-body
+				%table.table.table-striped
+					%tr
+						%th Alert
+						%th Date
+					-@alerts.each do |alert|
+						%tr
+							%td=alert.message
+							%td=alert.alert_time

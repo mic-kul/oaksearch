@@ -1,0 +1,16 @@
+%h1 Contact
+%p
+	Do you have any problem using our service? Or you have some bussiness inquiry? Do not hesitate to contact with us. We will respond to your message as soon as possible.
+
+%form{:method=>"post"}
+	= token_tag form_authenticity_token
+	.form-group
+		%label Your name:
+		%input{:class=>"form-control", :name=>"name-from"}
+	.form-group
+		%label Your email:
+		%input{:class=>"form-control", :name=>"email"}
+	.form-group
+		%label Message
+		%textarea{:class=>"form-control", :name=>"message", :rows=>"15"}
+	%input{:type=>"submit", :value=>"Send", :class=>"btn btn-success"}

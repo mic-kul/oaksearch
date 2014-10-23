@@ -1,0 +1,29 @@
+%h1
+	Tickets from stores
+.row
+	.col-md-12
+		%h3 
+		- if @storetickets.empty?
+			There are no messages yet.
+		- else
+			%table.table.table-striped.datatable
+				%thead
+					%tr
+						%td TicketID
+						%td Store
+						%td Date
+						%td Actions
+				%tbody
+					-@storetickets.each do |msg|
+						%tr
+							%td=msg.ticket_sa_id
+							%td=msg.name
+							%td=msg.datetime
+							%td
+								%a{:href=>"/show_store_ticket/#{msg.ticket_sa_id}"} Show more
+:javascript
+	console.log('ready!');
+	$('.datatable').dataTable({
+	"sPaginationType": "bootstrap"
+	});
+	

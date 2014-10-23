@@ -1,0 +1,11 @@
+%h1 Search History	
+%ul
+	-@searchhistory.each do |sh|
+		%li
+			=sh.date
+			-if sh.count
+				=sh.count.round
+				results
+			%a{:href=>sh.query}
+				=sh.query
+		

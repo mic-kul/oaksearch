@@ -1,0 +1,19 @@
+%h2 Price offers
+%table{:class =>"table table-hover table-striped table-bordered table-condensed datatable"}
+	%thead
+		%tr
+			%th Product Name
+			%th Start Date
+			%th Finish Date
+			%th Status
+			%th Actions
+	%tbody
+		- @priceoffers.each do |po|
+			%tr
+				%td= po.product.name
+				%td= po.start_date
+				%td= po.end_date
+				%td= po.auction_status
+				%td 
+					%a{:href=>"/user/price_offer/#{po.auction_id}", :class=>"btn btn-default btn-sm"}
+						View more

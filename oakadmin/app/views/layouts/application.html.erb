@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Oakadmin</title>
+  <%= stylesheet_link_tag    "bootstrap", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "sb-admin", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "font-awesome/css/font-awesome.css", media: "all", "data-turbolinks-track" => true %>
+
+  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "typeahead.js", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "readable_feature_types", "data-turbolinks-track" =>false %>
+  <!-- 3rd party CDNs -->
+  <!-- jQuery UI CSS -->
+  <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet">
+
+  <!-- tokenfield -->
+  <%= stylesheet_link_tag   "/tokenfield/css/bootstrap-tokenfield", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag   "/tokenfield/css/tokenfield-typeahead",  "data-turbolinks-track" => true %>
+
+  <%= javascript_include_tag "/tokenfield/bootstrap-tokenfield.js", "data-turbolinks-track" => false %>
+
+  <script>
+      var features_url = "/features.json";
+  </script>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <%= render "/navbar_top" if @current_user %>
+  <%= render "/sidebar" if @current_user %>
+    
+  <div id="page-wrapper">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <%= render "/messages" %>
+<%= yield %>
+      </div>
+    </div><!-- /.row -->
+
+  </div><!-- /#page-wrapper -->
+
+</div><!-- /#wrapper -->
+</body>
+</html>

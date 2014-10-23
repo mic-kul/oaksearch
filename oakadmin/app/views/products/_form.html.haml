@@ -1,0 +1,169 @@
+
+- if @product.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(@product.errors.count, "error")} prohibited this product from being saved:"
+    %ul
+      - @product.errors.full_messages.each do |msg|
+        %li= msg
+.row
+  .col-lg-8
+    = form_for @product, :html => { :id => "form-add-product"} do |f|
+      %fieldset
+        %legend= "Product data"
+        .form-group
+          = f.label :name
+          = f.text_field :name, class: "form-control"
+        .form-group
+          = f.label :description
+          = f.text_area :description, class: "form-control", rows: 5
+
+        %fieldset
+          %legend= "Features:"
+          %table.table.table-striped.datatable
+            %thead
+              %tr
+                %th Select
+                %th Name
+                %th Value
+            %tbody
+              - @features.each do |feat|
+                %tr
+                  %td
+                    -if @product.feature_ids.include?(feat.feature_id)
+                      %input{:type=>"checkbox", :name=>"product[feature_ids][]", :value=>feat.feature_id, :checked=>"checked"}
+                    -else
+                      %input{:type=>"checkbox", :name=>"product[feature_ids][]", :value=>feat.feature_id}
+                  %td= feat.feature_type
+                  %td= feat.feature_name
+
+        .actions
+          = f.submit 'Save', class: "btn btn-success", id: "product-form-save-button"
+  .col-lg-4
+    = form_for @feature, :html => { :id => "products_feature_form"} do |builder|
+      %fieldset
+        %legend= "Add feature"
+        .form-group
+          = builder.label :feature_type, "Type"
+          = builder.text_field :feature_type, class: "form-control"
+        .form-group
+          = builder.label :feature_name, "Value"
+          = builder.text_field :feature_name, class: "form-control"
+      .action
+        = builder.submit 'Save new feature', class: "btn btn-info", id: "products-add-feature-shortcut"
+
+
+
+:javascript
+  $('.datatable').dataTable({
+    "sPaginationType": "bootstrap"
+  });
+  var ready;
+  var tokenform;
+  ready = function() {
+    tokenform = $('#tokenfield-features');
+    tokenform.tokenfield({
+
+        minLength: 2,
+
+        typeahead: {
+            prefetch: {
+              url: features_url,
+              template: function(datum) {
+                return datum.label;
+              },
+              filter: function(data) {
+                                $.each(data, function(k, item) {
+                                  item.label = item.feature_type+': '+item.feature_name;
+                                  item.value = item.feature_id;
+                                  item.id = item.feature_id;
+                                  item.tokens = [item.feature_type, item.feature_name];
+                                });
+                                console.log(data);
+                                return(data);
+              },
+            },
+            remote: {
+               url: features_url+'?query=%QUERY',
+
+               filter: function(data) {
+                  $.each(data, function(k, item) {
+                    item.label = item.feature_type+': '+item.feature_name;
+                    item.value = item.feature_id;
+                    item.id = item.feature_id;
+                    item.tokens = [item.feature_type, item.feature_name];
+                  });
+                //  console.log(data);
+                  return data;
+                  }
+            },
+            ttl: 3600,
+        },
+        delay: 100,
+
+      showAutocompleteOnFocus: false
+    });
+
+    tokenform.on('beforeCreateToken', function (e) {
+           //e.token.label = e.token.label+'<input type="hidden" name="feature_id[]" value="'+e.token.id+'">';
+
+           console.log(e.token);
+
+    });
+
+
+    // product form
+    $("#product-form-save-button").click(function(e) {
+      /*e.preventDefault();
+      var form = $("#form-add-product");
+      console.log(form.serialize());
+      console.log(tokenform.tokenfield('getTokens'));
+      */
+    });
+
+    // feature form submit
+    $("#products-add-feature-shortcut").click(function(e) {
+      e.preventDefault();
+
+      var form = $("#products_feature_form");
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: form.attr('action')+'.json',
+        beforeSend: function(){
+
+                $.each(form.find("input.form-control"), function(i, item) {
+                  console.log(item);
+                  $(item).parent().removeClass('has-error');
+                  $(item).attr('title', '');
+                  $(item).tooltip('destroy');
+
+                });
+        },
+        data: form.serialize(),
+        success: function(data) {
+          $("#products-add-feature-shortcut").popover({
+            trigger: 'manual',
+            title: 'Success!',
+            content: 'Feature has been added successfully!',
+
+          });
+
+          $("#products-add-feature-shortcut").popover('show');
+          $.each(form.find("input.form-control"), function(i, item) {
+            $(item).val('');
+          });
+        },
+        error: function(data) {
+          $.each(data.responseJSON, function(name, item) {
+            console.log(name);
+            $('#feature_'+name).parent().addClass('has-error');
+            $('#feature_'+name).attr('title', '');
+            $('#feature_'+name).attr('title', item[0]);
+            $('#feature_'+name).tooltip('show');
+          });
+        }
+      });
+    });
+  }
+  $(document).ready(ready);
+

@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Feature:
+  = @feature.feature_id
+%p
+  %b Feature type:
+  = @feature.feature_type
+%p
+  %b Name:
+  = @feature.feature_name
+%p
+  %b Created by:
+  = @feature.admin.nick if @feature.admin
+%p
+  %b Created date:
+  = @feature.created_date
+%p
+  %b Modified by:
+  = @feature.admin.nick if @feature.admin
+%p
+  %b Modified date:
+  = @feature.modified_date
+
+= link_to 'Edit', edit_feature_path(@feature)
+\|
+= link_to 'Back', features_path

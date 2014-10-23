@@ -1,0 +1,23 @@
+%h1 Price quotations
+%table.table.table-striped.datatable
+	%thead
+		%tr
+			%th Product Name
+			%th User Nick
+			%th Date started
+			%th Date finish
+			%th Actions
+	%tbody
+		-@offers.each do |offer|
+			%tr
+				%td=offer.name
+				%td=offer.nick
+				%td=offer.start_date
+				%td=offer.end_date
+				%td=link_to "View more", "/offers/show/#{offer.auction_id}"
+
+:javascript
+	console.log('ready!');
+	$('.datatable').dataTable({
+	  "sPaginationType": "bootstrap"
+	});

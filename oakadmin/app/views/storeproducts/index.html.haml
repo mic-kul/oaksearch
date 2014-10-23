@@ -1,0 +1,31 @@
+%h1 
+  Listing store products
+  %a.btn.btn-success.btn-md{:href=>"storeproducts/new"}
+    create store product
+%table.table.table-striped.datatable#hiho
+  %thead
+    %tr
+      %th ID
+      %th Product Name
+      %th Store Name
+      %th Price
+      %th Actions
+  %tbody    
+    - @storeproducts.each do |su|
+      %tr
+        %td= su.store_product_id
+        %td= su.product.name
+        %td= su.store.name
+        %td= su.price
+        %td
+          = link_to 'Show', su,  :class => "btn btn-xs btn-info"
+          = link_to 'Edit', edit_storeproduct_path(su),  :class => "btn btn-xs btn-warning"
+          = button_to 'Remove', su, :method => :delete, :class => "btn btn-xs btn-danger", :data => { :confirm => 'Are you sure?' }
+
+%br
+
+:javascript
+  console.log('ready!');
+    $('.datatable').dataTable({
+      "sPaginationType": "bootstrap"
+    });

@@ -1,0 +1,11 @@
+%nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to raw('<i class="glyphicon glyphicon-search"></i> OakSearch'), root_path, class: 'navbar-brand'
+    .collapse.navbar-collapse
+      = render 'layouts/navigation_links'

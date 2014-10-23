@@ -1,0 +1,5 @@
+to Install oracle JDBC driver download ojdbc6.jar from:
+http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html
+and use maven to install to local repository:
+mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 \
+     -Dversion=11.2.0.4.0 -Dpackaging=jar -Dfile=ojdbc6.jar -DgeneratePom=true

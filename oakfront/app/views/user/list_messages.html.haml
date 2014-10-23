@@ -1,0 +1,35 @@
+%h1 Private Messages
+.row
+	.col-md-7
+		%p Newest messages are on top.
+		- if @messages.empty?
+			There are no messages yet.
+		-@messages.each do |msg|
+			.panel.panel-default
+				.panel-body
+					= simple_format h msg.message
+				.panel-footer
+					= msg.sent_date
+					from
+					= msg.u_from
+					to
+					= msg.u_to
+					-if @current_user.nick == msg.u_to
+						%a{:class=>"btn btn-info btn-sm reply-button", :href=>"#", :data=>{:replyto => msg.u_from}} Reply
+					-else
+						%a{:class=>"btn btn-info btn-sm reply-button", :href=>"#", :data=>{:replyto => msg.u_to}} Reply
+			
+			
+	.col-md-5.well
+		%h2 Write new
+		%form{:method=>"post", :action=>"/save_message"}
+			%input{:name=> "authenticity_token", :type=>"hidden", :value=> form_authenticity_token }
+			.form-group
+				%label Recipient
+				%input{:name=>"recipient", :id=>"recipient", :class=>"form-control"}
+			.form-group
+				%label Message
+				%textarea{:class=>"form-control", :id=>"message", :name=>"message", :rows=>15}
+			%input{:type=>"submit", :class=>"btn btn-success btn-sm", :value=>"Send"}
+
+

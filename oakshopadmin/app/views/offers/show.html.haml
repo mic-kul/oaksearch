@@ -1,0 +1,44 @@
+%h1 
+	Price Quotation for 
+	=@offer.name
+.row
+	.col-md-1
+	.col-md-8
+		%table.table.table-striped
+			%tr
+				%th From
+				%td=@offer.nick
+			%tr
+				%th Product
+				%td=@offer.name
+			%tr
+				%th{:colspan=>2}Message
+			%tr
+				%th{:colspan=>2}=@offer.message
+			%tr
+				%th Active from:
+				%td=@offer.start_date
+			%tr
+				%th Active to:
+				%td=@offer.end_date	
+
+.row
+	.col-md-1
+	.col-md-10
+		%h3 Make offer	
+		- if @shopoffer.errors.any?
+			#error_explanation
+				%h4="#{pluralize(@shopoffer.errors.count, "error")} prohibited this offer from being saved:"
+				%ul
+					- @shopoffer.errors.full_messages.each do |msg|
+						%li= msg
+		= form_tag(:action => 'make_offer_save', :method=>"post") do
+			%input{:type=>"hidden", :name=>"id", :value=>@offer.auction_id}
+			.form-group
+				%label Price
+				%input{:type=>"text", :name=>"price", :class=>"form-control", :value => @pval}
+			.form-group
+				%label Message
+				%textarea{:name=>"message", :rows=>"6", :class=>"form-control", :value => @mval}
+			.actions
+				%input{:type =>"submit", :value=>"make offer", :class=>"btn btn-default"}

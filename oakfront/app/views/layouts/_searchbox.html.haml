@@ -1,0 +1,27 @@
+%div{:class => "row searchbox", :style=>"margin-right: 0;"}
+	%form{:action=>"/products_search"}
+		%div{:class=> "col-md-9"}
+			<input id="token-search" type="search" class="form-control" name="query" placeholder="Type in, separating features with commas, what you are looking for" data-container="body" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+		%div{:class=>"col-md-1"}
+			<input id="exact-match" type="checkbox" class="form-control" name="exactmatch" value="1">
+		%div{:class=>"col-md-1"}
+			<label for="exact-match">Exact match</label>
+		%div{:class=> "col-md-1"}
+			<input id="token-search-btn" type="submit" class="btn btn-success" value="Search">
+:javascript
+	$('#token-search').tokenfield({
+	createTokensOnBlur: true,
+	limit: 10
+	});
+	$("#token-search-tokenfield").popover({
+		content: 'Do you need some example query? Try writing "screen" into search query input!',
+		trigger: 'focus',
+		title: 'Search Tip!',
+		placement: 'bottom',
+		html: true
+	});
+
+
+- if @query
+	:javascript
+		$("#token-search").tokenfield('setTokens', #{@query.to_s()});

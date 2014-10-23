@@ -1,0 +1,36 @@
+%h1 Register new User account
+- @page_title = "UserAuth | Signup"
+.Sign_Form
+  = form_for(:user, :url => {:controller => 'user', :action => 'create'}) do |f|
+    - if @user.errors.any?
+      %ul.Signup_Errors
+        - for message_error in @user.errors.full_messages
+          %li
+            * #{message_error}
+    .form-group
+      %label Nick
+      #{f.text_field :nick, class: 'form-control'}
+    .form-group
+      %label First Name
+      #{f.text_field :first_name,  class: 'form-control'}
+    .form-group
+      %label Last name
+      #{f.text_field :last_name,  class: 'form-control'}
+    .form-group
+      %label Zip code: 
+      #{f.text_field :zip_code,  class: 'form-control'}
+    -if @country
+      %input{:type=>'hidden', :name=>"_country", :value=>@country}
+    .form-group
+      %label Country
+      #{country_select "", "country", { priority: %w(PL GB US), prompt: 'Please select your country' }, { class: 'form-control', name: 'country' }}
+    .form-group
+      %label Email
+      #{f.text_field :email,  class: 'form-control'}
+    .form-group
+      %label Password
+      #{f.password_field :password,  class: 'form-control'}
+    .form-group
+      %label Password Confirmation
+      #{f.password_field :password_confirmation,  class: 'form-control'}
+    = f.submit :Signup, class: 'btn btn-success'

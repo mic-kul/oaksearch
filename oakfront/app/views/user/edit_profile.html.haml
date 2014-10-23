@@ -1,0 +1,23 @@
+%h3
+	Edit profile
+.row
+	.col-md-6
+		- if @user.errors.any?
+			%h4	Form problems:
+			%ul.Signup_Errors
+				-for message_error in @user.errors.full_messages
+					%li
+						* #{message_error}
+		%form{:action =>"edit_profile", :method=>"post"}
+			%input{:name=> "authenticity_token", :type=>"hidden", :value=> "form_authenticity_token" }
+			%input{:type=>"hidden", :name=>"password", :value=>"12341234"}
+			.form-group
+				%label Email
+				%input.form-control{:name=>"email", :value => @current_user.email}
+			.form-group
+				%label Address
+				%textarea.form-control{:name=>"street_address"}
+					=@current_user.street_address
+			%button{:type=>"submit", :class=>"btn btn-success"}
+				Save changes
+		%p From security reasons, to modify name, surname or zip code you should <a href="/contact">contact</a> OakSearch administration

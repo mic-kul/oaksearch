@@ -1,0 +1,19 @@
+.pagination {
+    margin: 0 !important;
+}
+.field {
+    margin-top: 5px;
+}
+.field label {
+    display: inline-block;
+    width: 230px;
+    float: left;
+    text-align: right;
+    padding-right: 3px;
+}
+
+.field input {
+    display: inline-block;
+
+
+}

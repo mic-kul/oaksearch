@@ -1,0 +1,29 @@
+CREATE INDEX ON :Product(dbid);
+CREATE INDEX ON :Feature(dbid);
+
+DECLARE
+   CURSOR C1 IS SELECT product_id FROM PRODUCTS;
+BEGIN
+   FOR C1_REC IN C1 LOOP
+      INSERT INTO worker_tasks (worker_task_id, event_type, event_desc, event_timestamp)
+            VALUES (worker_task_id_seq.nextval, 'product_add', DBMS_XMLGEN.getxmltype (CONCAT('SELECT * FROM PRODUCTS WHERE PRODUCT_ID =', c1_rec.product_id)), current_timestamp);
+   END LOOP;
+END;
+
+DECLARE
+   CURSOR C1 IS SELECT FEATURE_ID FROM FEATURES;
+BEGIN
+   FOR C1_REC IN C1 LOOP
+      INSERT INTO worker_tasks (worker_task_id, event_type, event_desc, event_timestamp)
+            VALUES (worker_task_id_seq.nextval, 'FEATURE_add', DBMS_XMLGEN.getxmltype (CONCAT('SELECT * FROM FEATURES WHERE FEATURE_ID =', c1_rec.FEATURE_ID)), current_timestamp);
+   END LOOP;
+END;
+
+DECLARE
+   CURSOR C1 IS SELECT prod_feat_id FROM product_features;
+BEGIN
+   FOR C1_REC IN C1 LOOP
+      INSERT INTO worker_tasks (worker_task_id, event_type, event_desc, event_timestamp)
+            VALUES (worker_task_id_seq.nextval, 'prod_feat_add', DBMS_XMLGEN.getxmltype (CONCAT('SELECT * FROM product_features WHERE prod_feat_id =', c1_rec.prod_feat_id)), current_timestamp);
+   END LOOP;
+END;

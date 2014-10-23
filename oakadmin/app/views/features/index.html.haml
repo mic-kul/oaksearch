@@ -1,0 +1,38 @@
+%h1{:class => "page-header"} Listing features
+%div{:class => "breadcrumb"}
+  = link_to 'New Feature', new_feature_path, {:class=>"btn btn-info"}
+%table{:class =>"table table-hover table-striped datatable"}
+  %thead
+    %tr
+      %th #ID
+      %th Type
+      %th Value
+      %th Created by
+      %th Created date
+      %th Modified by
+      %th Modified date
+      %th Actions
+  %tbody
+    - @features.each do |feature|
+      %tr
+        %td= feature.feature_id
+        %td= feature.feature_type
+        %td= feature.feature_name
+        %td= feature.created_by
+        %td= feature.created_date
+        %td= feature.modified_by
+        %td= feature.modified_date
+        %td
+          = link_to 'Edit', edit_feature_path(feature), :class => "btn btn-xs btn-warning"
+          = button_to 'Destroy', feature, :method => :delete, :class => "btn btn-xs btn-danger", :data => { :confirm => 'Are you sure?' }
+
+%br
+
+%div{:class => "breadcrumb"}
+  = link_to 'New Feature', new_feature_path, {:class=>"btn btn-info"}
+
+:javascript
+  console.log('ready!');
+    $('.datatable').dataTable({
+      "sPaginationType": "bootstrap"
+    });

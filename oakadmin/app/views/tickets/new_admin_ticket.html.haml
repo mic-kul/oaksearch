@@ -1,0 +1,14 @@
+%h1 New Admin Ticket
+
+%form{:method=>"post"}
+	%input{:name=>"authenticity_token", :type=>"hidden", :value=> form_authenticity_token} 
+	.form-group
+		%label Administrator
+		%select{:name=>"admin_id", :class=>"form-control"}
+			%option
+			-@admins.each do |a|
+				%option{:value=> a.admin_id}= "#{a.first_name} #{a.last_name}"
+	.form-group
+		%label Message
+		%textarea{:name=>"message", :class=>"form-control", :rows=>6}
+	%input{:type=>"submit", :value=>"Send", :class=>"btn btn-info"}

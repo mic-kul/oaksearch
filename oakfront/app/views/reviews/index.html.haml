@@ -1,0 +1,18 @@
+%h3 Reviews
+%table{:class =>"table table-hover table-striped table-bordered table-condensed datatable"}
+	%thead
+		%tr
+			%th{:style=>"min-width: 25px;"}= 'Rating'
+			%th Author
+			%th Product
+			%th Date added
+			%th Actions
+	%tbody
+		- @reviews.each do |review|
+			%tr
+				%td= review.rating
+				%td=review.user.nick
+				%td= link_to review.product.name, review.product
+				%td 
+					%abbr{:class=> "timeago", :title=> review.created_date}= review.created_date
+				%td=link_to 'Show review', review

@@ -1,0 +1,15 @@
+%h1 New Store Ticket
+
+%form{:method=>"post"}
+	%input{:name=>"authenticity_token", :type=>"hidden", :value=> form_authenticity_token} 
+	.form-group
+		%label Store
+		%select{:name=>"store_id", :class=>"form-control"}
+			-if !@id
+				%option
+			-@stores.each do |s|
+				%option{:value=> s.store_id}=s.name
+	.form-group
+		%label Message
+		%textarea{:name=>"message", :class=>"form-control", :rows=>6}
+	%input{:type=>"submit", :value=>"Send", :class=>"btn btn-info"}

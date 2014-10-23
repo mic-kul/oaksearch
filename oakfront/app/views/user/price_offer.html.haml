@@ -1,0 +1,39 @@
+%h1
+	='Price offers for'
+	=link_to @auction.name, '/products/'+@auction.product_id.to_s
+
+.row
+	.col-xs-1{:style=>"width: 1%;"}
+	.col-md-3.well
+		Start Date
+		%br
+		%b
+			= @auction.start_date
+	.col-md-1
+	.col-md-3.well
+		Finish Date
+		%br
+		%b
+			= @auction.end_date
+	.col-md-1
+	.col-md-3.well
+		Price offer status
+		%br
+		%b
+			= @auction.auction_status
+%h2 Offers
+.row
+	-if @offers.blank?
+		.col-md-12 There are currently no offers 
+	.col-md-7	
+		- @offers.each do |offer|
+			.panel.panel.panel-info
+				.panel-heading
+					=offer.offer_date
+					-if offer.price
+						= 'for #{offer.price}'
+				.panel-body
+					=offer.offer
+
+
+

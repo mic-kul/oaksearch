@@ -1,0 +1,33 @@
+%h1 
+  Listing store users
+  %a.btn.btn-success.btn-md{:href=>"storeusers/new"}
+    create store user
+%table.table.table-striped.datatable#hiho
+  %thead
+    %tr
+      %th ID
+      %th Nick
+      %th First Name
+      %th Last name
+      %th Email
+      %th Actions
+  %tbody    
+    - @storeusers.each do |su|
+      %tr
+        %td= su.store_user_id
+        %td= su.nick
+        %td= su.first_name
+        %td= su.last_name
+        %td= su.email
+        %td
+          = link_to 'Show', su,  :class => "btn btn-xs btn-info"
+          = link_to 'Edit', edit_storeuser_path(su),  :class => "btn btn-xs btn-warning"
+          = button_to 'Remove', su, :method => :delete, :class => "btn btn-xs btn-danger", :data => { :confirm => 'Are you sure?' }
+
+%br
+
+:javascript
+  console.log('ready!');
+    $('.datatable').dataTable({
+      "sPaginationType": "bootstrap"
+    });

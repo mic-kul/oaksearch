@@ -1,0 +1,41 @@
+%div{:id=>"canvas"}
+%script
+	var pid = #{@id};
+	var prod = "#{@product.name}";
+:javascript
+		var redraw;
+	var height = 300;
+	var width = 300;
+	$(document).ready(function() {
+	var graphurl = "/show_graph_json/"+pid;
+	$.getJSON(graphurl, function(data) {
+		var g = new Graph();
+		for(var o =0; o<data.length; o++) {
+			name = data[o][0];
+			dbid = data[o][1];
+			label = data[o][3].join("\n")
+			g.addEdge(name, prod, {label: label, stroke: 'lightgray'});
+
+		}
+
+		var layouter = new Graph.Layout.Spring(g);
+		layouter.layout();
+		
+		/* draw the graph using the RaphaelJS draw implementation */
+		var renderer = new Graph.Renderer.Raphael('canvas', g, width, height);
+		renderer.draw();
+		
+		redraw = function() {
+			layouter.layout();
+			renderer.draw();
+		};
+	});
+	});
+
+
+	/* only do all this when document has finished loading (needed for RaphaelJS */
+
+
+	
+
+

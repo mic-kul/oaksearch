@@ -1,0 +1,27 @@
+%h1
+	Tickets from users
+.row
+	.col-md-12
+		%h3 
+			
+		%p Newest tickets are on top.
+		- if @storetickets.empty?
+			There are no messages yet.
+		- else
+			%table.table.table-striped
+				%thead
+					%tr
+						%td TicketID
+						%td User
+						%td Date
+						%td Actions
+				%tbody
+					-@storetickets.each do |msg|
+						%tr
+							%td=msg.ticket_us_id
+							%td=msg.nick
+							%td=msg.datetime
+							%td
+								%a{:href=>"/show_user_ticket/#{msg.ticket_us_id}"} Show more
+
+	

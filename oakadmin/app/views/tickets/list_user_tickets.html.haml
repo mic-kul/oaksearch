@@ -1,0 +1,28 @@
+%h1 
+	Tickets from Users
+.row
+	.col-md-12
+		- if @usertickets.empty?
+			There are no messages yet.
+		- else
+			%table.table.table-striped.datatable
+				%thead
+					%tr
+						%td TicketID
+						%td Nick
+						%td Date
+						%td Action
+				%tbody
+					-@usertickets.each do |msg|
+						%tr
+							%td=msg.ticket_ua_id
+							%td=msg.nick
+							%td=msg.datetime
+							%td
+								%a{:href=>"/show_user_ticket/#{msg.ticket_ua_id}"}
+									Show more
+:javascript
+	console.log('ready!');
+	$('.datatable').dataTable({
+	"sPaginationType": "bootstrap"
+	});

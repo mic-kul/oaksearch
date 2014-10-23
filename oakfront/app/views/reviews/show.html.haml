@@ -1,0 +1,44 @@
+.row
+	.col-md-8
+		%h2
+			Review of #{@review.product.name}
+			%small.pull-right
+				%i
+					written by
+				%b
+					=@review.user.nick
+				%i
+					on
+				%b
+					=@review.created_date
+		%p.rating
+			Rating: 
+			=@review.rating
+		%p
+			=@review.review_txt
+	.col-md-4
+		.panel.panel-info
+			.panel-heading
+				%h4 More reviews of #{@review.product.name}
+			.panel-body
+				- if @otherProdRev.blank?
+					%p There are no other reviews of this product
+				%ul
+				-@otherProdRev.each do |rev|
+					%li
+						%a{:href=>"/reviews/#{rev.review_id}"}
+							written by
+							= rev.user.nick
+		.panel.panel-info
+			.panel-heading
+				%h4 Reviews by #{@review.user.nick}
+			.panel-body
+				- if @otherProdRev.blank?
+					%p There are no other reviews written by this user
+				%ul
+				-@otherUserRev.each do |rev|
+					%li
+						%a{:href=>"/reviews/#{rev.review_id}"}
+							written about
+							= rev.product.name
+				

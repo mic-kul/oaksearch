@@ -1,0 +1,20 @@
+.row
+	.col-md-12
+		%table{:class=>"table table-bordered table-striped table-hover"}
+			%tr
+				%th
+				- @result.each do |r|
+					%th=r.name
+			%tr
+				%th Feature
+				- @result.each do |r|
+					%td
+			- @table.each do |fk|
+				%tr
+					%th= fk[0]
+					- @result.each do |r|
+						%td
+							- if fk[1][r.product_id]
+								= fk[1][r.product_id]
+							- else
+								= "-"

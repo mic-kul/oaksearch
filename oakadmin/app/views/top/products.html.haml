@@ -1,0 +1,20 @@
+%h1 Top products
+%table.table.table-striped.datatable
+	%thead
+		%tr
+			%td Product Name
+			%td Visits
+	%tbody
+		- @topproducts.each do |top|
+			%tr
+				%td
+					%a{:href=> "/product/#{top.product_id}"}
+						= top.name
+				%td=@visits[top.product_id.to_s]
+			
+		
+:javascript
+	console.log('ready!');
+	$('.datatable').dataTable({
+	  "sPaginationType": "bootstrap"
+	});

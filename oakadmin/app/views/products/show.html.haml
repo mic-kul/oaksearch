@@ -1,0 +1,41 @@
+%p#notice= notice
+
+.row
+  .col-lg-6
+    %h2 Product data
+    %p
+      %b Product id:
+      = @product.product_id
+    %p
+      %b Name:
+      = @product.name
+    %p
+      %b Description:
+      %br
+      = @product.description
+    %p
+      %b Created by:
+      = @product.created_by
+    %p
+      %b Created date:
+      = @product.created_date
+    %p
+      %b Modified by:
+      = @product.modified_by
+    %p
+      %b Modified date:
+      = @product.modified_date
+  .col-lg-6
+    %h3 Features
+    %table{class: "table table-hover table-striped tablesorter"}
+      %tr
+        %th Type
+        %th Value
+        - @product.features.each do |feature|
+          %tr
+            %td= feature.feature_type
+            %td= feature.feature_name
+
+= link_to 'Edit', edit_product_path(@product)
+\|
+= link_to 'Back', products_path

@@ -1,0 +1,45 @@
+-if !@blacklisted.blank?
+	:javascript
+		_store_blacklisted = true;	
+
+.row
+	%h1=@store.name
+	.col-md-5.well
+		This store is with us since #{@store.created_date}
+	.col-md-2
+	.col-md-5.well
+		This store's official website is: 
+		= link_to @store.website, @store.website
+		And the street address is:
+		%br
+		- if @store.street_address.blank?
+			Unknown
+		- else
+			=@store.street_address
+
+.row
+	%h2 Store's offer:
+	%table.table.table-striped.datatable
+		%thead
+			%tr
+				%th Product Name
+				%th Price
+				%th Actions
+		%tbody
+			-@storeproducts.each do |sp|
+				%tr
+					%td= link_to sp.product.name, sp.product
+					%td= sp.price
+					%td
+						%a{:href=>"#", :class=>"ask-product", :data=>{:pid=>sp.store_product_id, :sid=>sp.store_id}} 	Ask about this product
+.row
+	.col-md-12
+		%p
+			If from some reason you don't want to receive offers from this store you can blacklist it here.
+			%a{:class=>"btn btn-default btn-sm", :id=>"btn-blacklist-store", :href=>"#", :data=>{:sid=>@store.store_id}}
+				-if @blacklisted.blank?
+					Blacklist
+				-else
+					Remove from Blacklist
+
+

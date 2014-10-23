@@ -1,0 +1,43 @@
+%h1 Tickets
+.row
+	.col-md-6
+		%h3 
+			Store Tickets
+			%a{:href=>"/new_store_ticket", :class=>"btn btn-default btn-sm"} New store ticket
+		%p Newest tickets are on top.
+		- if @storetickets.empty?
+			There are no messages yet.
+		- else
+			%table.table.table-striped
+				%thead
+					%tr
+						%td TicketID
+						%td Store
+						%td Date
+				%tbody
+					-@storetickets.each do |msg|
+						%tr
+							%td=msg.ticket_us_id
+							%td=msg.name
+							%td
+								%a{:href=>"/show_store_ticket/#{msg.ticket_us_id}"}=msg.datetime
+
+	.col-md-6
+		%h3 
+			Admin Tickets
+			%a{:href=>"/new_admin_ticket", :class=>"btn btn-default btn-sm"} New admin ticket
+		%p Newest tickets are on top.
+		- if @admintickets.empty?
+			There are no messages yet.
+		- else
+			%table.table.table-striped
+				%thead
+					%tr
+						%td TicketID
+						%td Date
+				%tbody
+					-@admintickets.each do |msg|
+						%tr
+							%td=msg.ticket_ua_id
+							%td
+								%a{:href=>"/show_admin_ticket/#{msg.ticket_ua_id}"}=msg.datetime

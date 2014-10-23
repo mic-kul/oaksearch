@@ -1,0 +1,13 @@
+package pl.pjwstk.oak.dbsync.model;
+
+public enum EventType {
+	PRODUCT_ADD,
+	PRODUCT_DELETE,
+	PRODUCT_MOD,
+	FEATURE_ADD,
+	FEATURE_DELETE,
+	FEATURE_MOD,
+	PROD_FEAT_ADD,
+	PROD_FEAT_MOD,
+	PROD_FEAT_DELETE
+}

@@ -1,0 +1,30 @@
+%h2
+	=@current_user.nick if @current_user 
+	Profile
+.row
+	.col-md-4
+		%table.table.table-striped
+			%tr
+				%th First Name
+				%td=@current_user.first_name
+			%tr
+				%th Last Name
+				%td=@current_user.last_name
+			%tr
+				%th Nick
+				%td= @current_user.nick
+			%tr
+				%th Email
+				%td= @current_user.email
+			%tr
+				%th Address
+				%td= @current_user.street_address
+			%tr
+				%th Zip Code
+				%td= @current_user.zip_code
+		.pull-right
+			%a.btn.btn-default{:href=>"/user/edit_profile"}
+				Edit Profile
+			%a.btn.btn-default{:href=>"/user/change_password"}
+				Change Password
+			

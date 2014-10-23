@@ -1,0 +1,17 @@
+%h3 Products
+%table{:class =>"table table-hover table-striped table-bordered table-condensed datatable"}
+	%thead
+		%tr
+			%th{:style=>"width: 30px"}
+				%a{:class=>"btn btn-danger btn-md", :href=>"#", :id=>"compare-btn"}
+					Compare
+			%th{:style=>"min-width: 150px;"}= 'Name'
+			%th= 'Date modified'
+	%tbody
+		- @products.each do |product|
+			%tr
+				%td
+					%input{:type=> "checkbox", :value=> product.product_id, :class => "compare-checkbox"}
+				%td= link_to product.name, product
+				%td 
+					%abbr{:class=> "timeago", :title=> product.modified_date }= product.modified_date

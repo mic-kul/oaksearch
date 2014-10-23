@@ -1,0 +1,34 @@
+.row
+	.col-md-8
+		.well.well-md
+			%h1 Welcome to the Oak Search!
+			%p
+				Welcome to the our awesome application with zillions of products and quadrillions of functionalities!
+	.col-md-4
+		.panel.panel-info
+			.panel-heading
+				%h3{:class => "panel-title"} Most popular products
+			.panel-body
+				%ul.media-list
+					- @topproducts.each do |top|
+						%li.media
+							%a.pull-left{:href=> "/product/#{top.product_id}"}
+								
+							.media-body
+								%a{:href=> "/product/#{top.product_id}"}
+									%h4.media-heading= top.name
+		.panel.panel-success
+			.panel-heading
+				%h3{:class => "panel-title"} Popular stores
+			.panel-body
+				%ul.media-list
+					- @topstores.each do |top|
+						%li.media
+							%a.pull-left{:href=> "/stores/#{top.store_id}"}
+							.media-body
+								%a{:href=> "/stores/#{top.store_id}"}
+									%h4.media-heading= top.name
+				
+		%a{:class => "btn btn-warning btn-x-large btn-block", :href => "/home_stats"}
+			<b class="glyphicon glyphicon-stats"></b> Show more statistics
+				      

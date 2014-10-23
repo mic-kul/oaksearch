@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %title= content_for?(:title) ? yield(:title) : 'Oakfront'
+    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Oakfront'}"}
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    :javascript
+      var current_user = null;
+      var _oak_token = "#{form_authenticity_token}";
+    - if @current_user
+      :javascript
+        current_user = #{@current_user.user_id};
+
+  %body
+    .container
+      %header
+        = render 'layouts/navigation'
+      = render 'layouts/breadcrumbs'
+      = render 'layouts/messages'
+      = render 'layouts/searchbox'
+      = yield
+      = render 'layouts/footer'
+      = render 'layouts/modal'

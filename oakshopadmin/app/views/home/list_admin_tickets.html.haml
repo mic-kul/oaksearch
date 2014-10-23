@@ -1,0 +1,20 @@
+%h1 
+	Tickets to Oak Administration
+	%a{:href=>"/new_admin_ticket", :class=>"btn btn-sm btn-info"} New ticket
+.row
+	.col-md-12
+		%p Newest tickets are on top.
+		- if @admintickets.empty?
+			There are no messages yet.
+		- else
+			%table.table.table-striped
+				%thead
+					%tr
+						%td TicketID
+						%td Date
+				%tbody
+					-@admintickets.each do |msg|
+						%tr
+							%td=msg.ticket_sa_id
+							%td
+								%a{:href=>"/show_admin_ticket/#{msg.ticket_sa_id}"}=msg.datetime

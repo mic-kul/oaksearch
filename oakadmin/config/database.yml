@@ -34,6 +34,6 @@ test:
 
 production:
   adapter: oracle_enhanced
-  database: //oracle.trou.pl:1521/oracle.trou.pl
+  database: //oracle.z:1521/oracle
   username: developer
   password: OmletteDuFromage
